@@ -1,0 +1,4 @@
+Animal detected at 2026-03-16 19:29:28 | Deployment Site | Lat: 12.9716, Lon: 77.5946
+Animal detected at 2026-03-16 19:38:47 | Hyderabad | Lat: 17.384, Lon: 78.4564
+Animal detected at 2026-03-16 19:41:06 | Hyderabad | Lat: 17.384, Lon: 78.4564
+Animal detected at 2026-03-16 19:42:25 | Hyderabad | Lat: 17.384, Lon: 78.4564

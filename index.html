@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Animal Detection Dashboard</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    margin: 20px auto;
+    width: 450px;
+    border-radius: 12px;
+}
+
+.alert-box {
+    background: red;
+    padding: 15px;
+    margin: 20px auto;
+    width: 450px;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    display: none;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0.3; }
+}
+
+img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Animal Detection Dashboard</h1>
+
+<div id="alertBox" class="alert-box">
+ANIMAL DETECTED
+</div>
+
+<div class="card">
+<p><b>Status:</b> <span id="status"></span></p>
+<p><b>Location:</b> <span id="location"></span></p>
+<p><b>Time:</b> <span id="time"></span></p>
+<p><b>Message:</b> <span id="message"></span></p>
+
+<img id="image" src="" alt="Detection Image" style="display:none;">
+</div>
+
+<script>
+async function loadData() {
+    try {
+        const res = await fetch("status.json?" + new Date().getTime());
+        const data = await res.json();
+        document.getElementById("status").innerText = "Waiting...";
+        document.getElementById("status").innerText = data.status;
+        document.getElementById("location").innerText = data.location;
+        document.getElementById("time").innerText = data.time;
+        document.getElementById("message").innerText = data.message;
+
+        if (data.status === "Animal Detected") {
+            document.getElementById("alertBox").style.display = "block";
+
+            if (data.image) {
+                document.getElementById("image").src = data.image + "?" + new Date().getTime();
+                document.getElementById("image").style.display = "block";
+            }
+
+        } else {
+            document.getElementById("alertBox").style.display = "none";
+        }
+
+    } catch (err) {
+        console.log("Error loading data");
+    }
+}
+
+// refresh every 2 sec
+setInterval(loadData, 2000);
+loadData();
+</script>
+
+</body>
+</html>
